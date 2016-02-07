@@ -1,0 +1,57 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Hello React 01</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+</head>
+<body>
+    <div id="content"></div>
+    <script type="text/jsx">
+        var data = [
+            {first: "Peter", last: "Parker"},
+            {first: "Bruce", last: "Wayne"},
+        ];
+
+        var MyApp = React.createClass({
+            render: function () {
+                return (<PersonList data={this.props.data}/>)
+            }
+        });
+
+        var Person = React.createClass({
+            doSomething: function(){
+                alert("Display: " + this.props.children);
+            },
+            render: function() {
+                return(
+                        <div>
+                            <h2>Hello {this.props.first} {this.props.last}!</h2>
+                            <a onClick={this.doSomething} href="#">Click me!</a>
+                        </div>
+                );
+            }
+        });
+        
+        var PersonList = React.createClass(
+                {
+                    render: function()
+                    {
+                        var list = this.props.data.map(function(person)
+                        {
+                            return <Person first={person.first} last={person.last}>This is a child of this component</Person>
+                        });
+                        return (<div>{list}</div>);
+                    }
+                });
+
+
+        React.render(
+                <MyApp data={data}> test</MyApp>,
+                document.getElementById('content')
+        );
+
+    </script>
+</body>
+</html>
